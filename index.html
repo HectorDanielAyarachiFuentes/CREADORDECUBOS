@@ -43,6 +43,8 @@
     transform: rotate(0.3s);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
+.container .code-container.imagen-1 h2 {
+}
   .code-container {
     width: 250px;
     padding: 20px;
@@ -61,12 +63,18 @@
     font-size: 12px;
     margin-left: 5px;
   }
+.imagen-1 {
+	background-image: repeating-linear-gradient(264deg, rgba(255,255,255, 0.1) 0px, rgba(255,255,255, 0.1) 1px,transparent 1px, transparent 26px),repeating-linear-gradient(354deg, rgba(255,255,255, 0.1) 0px, rgba(255,255,255, 0.1) 1px,transparent 1px, transparent 26px),linear-gradient(354deg, hsl(213,95%,63%),hsl(213,95%,63%))
+}
+.imagen-2 {
+	background-image: repeating-linear-gradient(90deg, rgba(198, 198, 198,0.05) 0px, rgba(198, 198, 198,0.05) 1px,transparent 1px, transparent 5px),repeating-linear-gradient(0deg, rgba(198, 198, 198,0.05) 0px, rgba(198, 198, 198,0.05) 1px,transparent 1px, transparent 5px),repeating-linear-gradient(0deg, rgba(198, 198, 198,0.06) 0px, rgba(198, 198, 198,0.06) 1px,transparent 1px, transparent 15px),repeating-linear-gradient(90deg, rgba(198, 198, 198,0.06) 0px, rgba(198, 198, 198,0.06) 1px,transparent 1px, transparent 15px),linear-gradient(90deg, rgb(255,255,255),rgb(255,255,255));
+}
 </style>
 <title>Programa de Creación de Cubos</title>
 </head>
 <body>
 <div class="container">
-  <div class="panel">
+  <div class="panel imagen-1">
     <h2>Panel de Cambios</h2>
     <label for="cubeWidth">Anchura del Cubo:</label>
     <input type="number" id="cubeWidth" oninput="updateCubeWidth()" onchange="updateCubeWidth()">
@@ -106,9 +114,9 @@
   <div class="cube-container">
     <div class="cube"></div>
   </div>
-  <div class="code-container">
+  <div class="code-container imagen-1">
     <h2>Código Generado</h2>
-    <pre class="code" id="generatedCode"></pre>
+    <pre class="code imagen-2" id="generatedCode"></pre>
   </div>
 </div>
 <script>
