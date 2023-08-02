@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    display: flex;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .panel {
+    width: 250px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-right: 1px solid #ccc;
+  }
+  .cube-container {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+  }
+  .cube {
+    width: 100px;
+    height: 100px;
+    background-color: #3498db;
+    opacity: 0.7;
+    border: 1px solid #2980b9;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    transform: rotate(0deg);
+    transition: all 0.3s ease-in-out;
+  }
+  .code-container {
+    width: 250px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-left: 1px solid #ccc;
+  }
+  .code {
+    font-family: monospace;
+    white-space: pre;
+    overflow: auto;
+    height: 250px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+</style>
+<title>Programa de Creación de Cubos</title>
+</head>
+<body>
+<div class="container">
+  <div class="panel">
+    <h2>Panel de Cambios</h2>
+    <label for="cubeWidth">Anchura del Cubo:</label>
+    <input type="number" id="cubeWidth">
+    <br>
+    <label for="cubeHeight">Altura del Cubo:</label>
+    <input type="number" id="cubeHeight">
+    <br>
+    <label for="cubeColor">Color del Cubo:</label>
+    <input type="color" id="cubeColor">
+    <br>
+    <label for="cubeOpacity">Opacidad del Cubo:</label>
+    <input type="range" id="cubeOpacity" min="0" max="1" step="0.1">
+    <br>
+    <label for="cubeBorder">Ancho del Borde:</label>
+    <input type="number" id="cubeBorder">
+    <br>
+    <label for="cubeBorderRadius">Radio del Borde:</label>
+    <input type="number" id="cubeBorderRadius">
+    <br>
+    <label for="cubeBoxShadow">Sombra del Cubo:</label>
+    <input type="text" id="cubeBoxShadow">
+    <br>
+    <label for="cubeRotation">Rotación del Cubo:</label>
+    <input type="number" id="cubeRotation">
+    <br>
+    <label for="cubeTransition">Transición del Cubo:</label>
+    <input type="text" id="cubeTransition">
+    <br>
+    <button id="generateCodeBtn">Generar Código</button>
+  </div>
+  <div class="cube-container">
+    <div class="cube"></div>
+  </div>
+  <div class="code-container">
+    <h2>Código Generado</h2>
+    <pre class="code" id="generatedCode"></pre>
+  </div>
+</div>
+<script>
+  const cubeWidthInput = document.getElementById('cubeWidth');
+  const cubeHeightInput = document.getElementById('cubeHeight');
+  const cubeColorInput = document.getElementById('cubeColor');
+  const cubeOpacityInput = document.getElementById('cubeOpacity');
+  const cubeBorderInput = document.getElementById('cubeBorder');
+  const cubeBorderRadiusInput = document.getElementById('cubeBorderRadius');
+  const cubeBoxShadowInput = document.getElementById('cubeBoxShadow');
+  const cubeRotationInput = document.getElementById('cubeRotation');
+  const cubeTransitionInput = document.getElementById('cubeTransition');
+  const cube = document.querySelector('.cube');
+  const generatedCode = document.getElementById('generatedCode');
+  const generateCodeBtn = document.getElementById('generateCodeBtn');
+
+  cubeWidthInput.addEventListener('input', updateCubeWidth);
+  cubeHeightInput.addEventListener('input', updateCubeHeight);
+  cubeColorInput.addEventListener('input', updateCubeColor);
+  cubeOpacityInput.addEventListener('input', updateCubeOpacity);
+  cubeBorderInput.addEventListener('input', updateCubeBorder);
+  cubeBorderRadiusInput.addEventListener('input', updateCubeBorderRadius);
+  cubeBoxShadowInput.addEventListener('input', updateCubeBoxShadow);
+  cubeRotationInput.addEventListener('input', updateCubeRotation);
+  cubeTransitionInput.addEventListener('input', updateCubeTransition);
+  generateCodeBtn.addEventListener('click', generateCode);
+
+  function updateCubeWidth() {
+    const cubeWidth = cubeWidthInput.value;
+    cube.style.width = `${cubeWidth}px`;
+  }
+
+  function updateCubeHeight() {
+    const cubeHeight = cubeHeightInput.value;
+    cube.style.height = `${cubeHeight}px`;
+  }
+
+  function updateCubeColor() {
+    const cubeColor = cubeColorInput.value;
+    cube.style.backgroundColor = cubeColor;
+  }
+
+  function updateCubeOpacity() {
+    const cubeOpacity = cubeOpacityInput.value;
+    cube.style.opacity = cubeOpacity;
+  }
+
+  function updateCubeBorder() {
+    const cubeBorder = cubeBorderInput.value;
+    cube.style.borderWidth = `${cubeBorder}px`;
+  }
+
+  function updateCubeBorderRadius() {
+    const cubeBorderRadius = cubeBorderRadiusInput.value;
+    cube.style.borderRadius = `${cubeBorderRadius}px`;
+  }
+
+  function updateCubeBoxShadow() {
+    const cubeBoxShadow = cubeBoxShadowInput.value;
+    cube.style.boxShadow = cubeBoxShadow;
+  }
+
+  function updateCubeRotation() {
+    const cubeRotation = cubeRotationInput.value;
+    cube.style.transform = `rotate(${cubeRotation}deg)`;
+  }
+
+  function updateCubeTransition() {
+    const cubeTransition = cubeTransitionInput.value;
+    cube.style.transition = cubeTransition;
+  }
+
+  function generateCode() {
+    const code = `
+      .cube {
+        width: ${cubeWidthInput.value}px;
+        height: ${cubeHeightInput.value}px;
+        background-color: ${cubeColorInput.value};
+        opacity: ${cubeOpacityInput.value};
+        border-width: ${cubeBorderInput.value}px;
+        border-radius: ${cubeBorderRadiusInput.value}px;
+        box-shadow: ${cubeBoxShadowInput.value};
+        transform: rotate(${cubeRotationInput.value}deg);
+        transition: ${cubeTransitionInput.value};
+      }
+    `;
+    generatedCode.textContent = code;
+  }
+</script>
+</body>
+</html>
