@@ -33,15 +33,15 @@
     border: 1px solid #ccc;
   }
   .cube {
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background-color: #3498db;
     opacity: 0.7;
     border: 1px solid #2980b9;
     border-radius: 10px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    transform: rotate(0deg);
-    transition: all 0.3s ease-in-out;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    transform: rotate(0.3s);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
   .code-container {
     width: 250px;
@@ -57,6 +57,10 @@
     border: 1px solid #ccc;
     padding: 10px;
   }
+  .input-value {
+    font-size: 12px;
+    margin-left: 5px;
+  }
 </style>
 <title>Programa de Creación de Cubos</title>
 </head>
@@ -65,31 +69,37 @@
   <div class="panel">
     <h2>Panel de Cambios</h2>
     <label for="cubeWidth">Anchura del Cubo:</label>
-    <input type="number" id="cubeWidth">
+    <input type="number" id="cubeWidth" oninput="updateCubeWidth()" onchange="updateCubeWidth()">
+    <input type="range" id="cubeWidthRange" oninput="updateCubeWidth()" onchange="updateCubeWidth()">
     <br>
     <label for="cubeHeight">Altura del Cubo:</label>
-    <input type="number" id="cubeHeight">
+    <input type="number" id="cubeHeight" oninput="updateCubeHeight()" onchange="updateCubeHeight()">
+    <input type="range" id="cubeHeightRange" oninput="updateCubeHeight()" onchange="updateCubeHeight()">
     <br>
     <label for="cubeColor">Color del Cubo:</label>
-    <input type="color" id="cubeColor">
+    <input type="color" id="cubeColor" onchange="updateCubeColor()">
     <br>
     <label for="cubeOpacity">Opacidad del Cubo:</label>
-    <input type="range" id="cubeOpacity" min="0" max="1" step="0.1">
+    <input type="number" id="cubeOpacity" step="0.1" oninput="updateCubeOpacity()" onchange="updateCubeOpacity()">
+    <input type="range" id="cubeOpacityRange" step="0.1" oninput="updateCubeOpacity()" onchange="updateCubeOpacity()">
     <br>
     <label for="cubeBorder">Ancho del Borde:</label>
-    <input type="number" id="cubeBorder">
+    <input type="number" id="cubeBorder" oninput="updateCubeBorder()" onchange="updateCubeBorder()">
+    <input type="range" id="cubeBorderRange" oninput="updateCubeBorder()" onchange="updateCubeBorder()">
     <br>
     <label for="cubeBorderRadius">Radio del Borde:</label>
-    <input type="number" id="cubeBorderRadius">
+    <input type="number" id="cubeBorderRadius" oninput="updateCubeBorderRadius()" onchange="updateCubeBorderRadius()">
+    <input type="range" id="cubeBorderRadiusRange" oninput="updateCubeBorderRadius()" onchange="updateCubeBorderRadius()">
     <br>
     <label for="cubeBoxShadow">Sombra del Cubo:</label>
-    <input type="text" id="cubeBoxShadow">
+    <input type="text" id="cubeBoxShadow" value="5px 5px 15px rgba(0, 0, 0, 0.5)" oninput="updateCubeBoxShadow()" onchange="updateCubeBoxShadow()">
     <br>
     <label for="cubeRotation">Rotación del Cubo:</label>
-    <input type="number" id="cubeRotation">
+    <input type="number" id="cubeRotation" oninput="updateCubeRotation()" onchange="updateCubeRotation()">
+    <input type="range" id="cubeRotationRange" oninput="updateCubeRotation()" onchange="updateCubeRotation()">
     <br>
     <label for="cubeTransition">Transición del Cubo:</label>
-    <input type="text" id="cubeTransition">
+    <input type="text" id="cubeTransition" value="transform 0.3s ease-in-out, opacity 0.3s ease-in-out" oninput="updateCubeTransition()" onchange="updateCubeTransition()">
     <br>
     <button id="generateCodeBtn">Generar Código</button>
   </div>
@@ -103,75 +113,76 @@
 </div>
 <script>
   const cubeWidthInput = document.getElementById('cubeWidth');
+  const cubeWidthRangeInput = document.getElementById('cubeWidthRange');
   const cubeHeightInput = document.getElementById('cubeHeight');
+  const cubeHeightRangeInput = document.getElementById('cubeHeightRange');
   const cubeColorInput = document.getElementById('cubeColor');
   const cubeOpacityInput = document.getElementById('cubeOpacity');
+  const cubeOpacityRangeInput = document.getElementById('cubeOpacityRange');
   const cubeBorderInput = document.getElementById('cubeBorder');
+  const cubeBorderRangeInput = document.getElementById('cubeBorderRange');
   const cubeBorderRadiusInput = document.getElementById('cubeBorderRadius');
+  const cubeBorderRadiusRangeInput = document.getElementById('cubeBorderRadiusRange');
   const cubeBoxShadowInput = document.getElementById('cubeBoxShadow');
   const cubeRotationInput = document.getElementById('cubeRotation');
+  const cubeRotationRangeInput = document.getElementById('cubeRotationRange');
   const cubeTransitionInput = document.getElementById('cubeTransition');
   const cube = document.querySelector('.cube');
   const generatedCode = document.getElementById('generatedCode');
   const generateCodeBtn = document.getElementById('generateCodeBtn');
 
-  cubeWidthInput.addEventListener('input', updateCubeWidth);
-  cubeHeightInput.addEventListener('input', updateCubeHeight);
-  cubeColorInput.addEventListener('input', updateCubeColor);
-  cubeOpacityInput.addEventListener('input', updateCubeOpacity);
-  cubeBorderInput.addEventListener('input', updateCubeBorder);
-  cubeBorderRadiusInput.addEventListener('input', updateCubeBorderRadius);
-  cubeBoxShadowInput.addEventListener('input', updateCubeBoxShadow);
-  cubeRotationInput.addEventListener('input', updateCubeRotation);
-  cubeTransitionInput.addEventListener('input', updateCubeTransition);
-  generateCodeBtn.addEventListener('click', generateCode);
-
-  function updateCubeWidth() {
+   function updateCubeWidth() {
     const cubeWidth = cubeWidthInput.value;
     cube.style.width = `${cubeWidth}px`;
+    cubeWidthRangeInput.value = cubeWidth;
   }
 
-  function updateCubeHeight() {
+   function updateCubeHeight() {
     const cubeHeight = cubeHeightInput.value;
     cube.style.height = `${cubeHeight}px`;
+    cubeHeightRangeInput.value = cubeHeight;
   }
 
-  function updateCubeColor() {
+   function updateCubeColor() {
     const cubeColor = cubeColorInput.value;
     cube.style.backgroundColor = cubeColor;
   }
 
-  function updateCubeOpacity() {
+   function updateCubeOpacity() {
     const cubeOpacity = cubeOpacityInput.value;
     cube.style.opacity = cubeOpacity;
+    cubeOpacityRangeInput.value = cubeOpacity;
   }
 
-  function updateCubeBorder() {
+   function updateCubeBorder() {
     const cubeBorder = cubeBorderInput.value;
     cube.style.borderWidth = `${cubeBorder}px`;
+    cubeBorderRangeInput.value = cubeBorder;
   }
 
-  function updateCubeBorderRadius() {
+   function updateCubeBorderRadius() {
     const cubeBorderRadius = cubeBorderRadiusInput.value;
     cube.style.borderRadius = `${cubeBorderRadius}px`;
+    cubeBorderRadiusRangeInput.value = cubeBorderRadius;
   }
 
-  function updateCubeBoxShadow() {
+   function updateCubeBoxShadow() {
     const cubeBoxShadow = cubeBoxShadowInput.value;
     cube.style.boxShadow = cubeBoxShadow;
   }
 
-  function updateCubeRotation() {
+   function updateCubeRotation() {
     const cubeRotation = cubeRotationInput.value;
     cube.style.transform = `rotate(${cubeRotation}deg)`;
+    cubeRotationRangeInput.value = cubeRotation;
   }
 
-  function updateCubeTransition() {
+   function updateCubeTransition() {
     const cubeTransition = cubeTransitionInput.value;
     cube.style.transition = cubeTransition;
   }
 
-  function generateCode() {
+   function generateCode() {
     const code = `
       .cube {
         width: ${cubeWidthInput.value}px;
@@ -187,6 +198,8 @@
     `;
     generatedCode.textContent = code;
   }
+
+   generateCodeBtn.addEventListener('click', generateCode);
 </script>
 </body>
 </html>
