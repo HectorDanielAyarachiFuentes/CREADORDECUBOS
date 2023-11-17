@@ -1,0 +1,105 @@
+body {
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.panel {
+  width: 250px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-right: 1px solid #ccc;
+}
+.cube-container {
+  width: 650px;
+  height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+}
+.cube {
+  width: 200px;
+  height: 200px;
+  background-color: #3498db;
+  opacity: 0.7;
+  border: 1px solid #2980b9;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+  transform: rotate(0.3s);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.code-container {
+  width: 250px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-left: 1px solid #ccc;
+}
+.code {
+  font-family: monospace;
+  white-space: pre;
+  overflow: auto;
+  height: 250px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+.input-value {
+  font-size: 12px;
+  margin-left: 5px;
+}
+.imagen-1 {
+  background-image: repeating-linear-gradient(
+      264deg,
+      rgba(255, 255, 255, 0.1) 0px,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px,
+      transparent 26px
+    ),
+    repeating-linear-gradient(
+      354deg,
+      rgba(255, 255, 255, 0.1) 0px,
+      rgba(255, 255, 255, 0.1) 1px,
+      transparent 1px,
+      transparent 26px
+    ),
+    linear-gradient(354deg, hsl(213, 95%, 63%), hsl(213, 95%, 63%));
+}
+.imagen-2 {
+  background-image: repeating-linear-gradient(
+      90deg,
+      rgba(198, 198, 198, 0.05) 0px,
+      rgba(198, 198, 198, 0.05) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(198, 198, 198, 0.05) 0px,
+      rgba(198, 198, 198, 0.05) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(198, 198, 198, 0.06) 0px,
+      rgba(198, 198, 198, 0.06) 1px,
+      transparent 1px,
+      transparent 15px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(198, 198, 198, 0.06) 0px,
+      rgba(198, 198, 198, 0.06) 1px,
+      transparent 1px,
+      transparent 15px
+    ),
+    linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255));
+}
